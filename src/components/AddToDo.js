@@ -1,15 +1,31 @@
-import React from "react";
-import {View, TextInput, Button, StyleSheet} from "react-native";
+import React, {useState} from "react";
+import {View, TextInput, Button, StyleSheet, Alert} from "react-native";
 
 export default function AddToDo({onSubmit}) {
 
+    const [value, setValue] = useState('')
+
     const pressHandler = () => {
-        onSubmit('TGest togo')
+        if (!value.trim().length) {
+            Alert.alert('Введите валидные данные!')
+        }
+        else {
+            onSubmit(value)
+            setValue('')
+        }
     }
 
     return (
         <View style={styles.AddToDo}>
-            <TextInput style={styles.input}/>
+            <TextInput
+                style={styles.input}
+                onChangeText={text => setValue(text)}
+                placeholder={'Enter you todo!'}
+                value={value}
+                autoCorrect={false}
+                autoCapitalize={"none"}
+            />
+
             <Button title={'Добавить'} onPress={pressHandler}/>
         </View>
     )
@@ -19,7 +35,8 @@ const styles = StyleSheet.create({
     AddToDo: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: 15
 
     },
     input: {
