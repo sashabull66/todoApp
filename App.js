@@ -13,6 +13,11 @@ export default function App() {
         }
         setTodos(prevState => [...prevState, newTodo])
     }
+
+    const removeTodo = id => {
+        setTodos(prevState => prevState.filter(todo => todo.id !== id))
+    }
+
     return (
         <View style={styles.container}>
             <Navbar title={'To Do List'}/>
@@ -22,7 +27,11 @@ export default function App() {
                     keyExtractor={item => item.id.toString()}
                     data={todos}
                     renderItem={
-                        ({item}) => <Todo todo={item}/>
+                        ({item}) =>
+                            <Todo
+                                todo={item}
+                                onRemove={removeTodo}
+                            />
                     }/>
             </View>
         </View>
