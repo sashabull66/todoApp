@@ -1,38 +1,50 @@
 import React, {useState} from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Navbar from "./src/components/Navbar.js";
-import AddToDo from "./src/components/AddToDo.js";
-import Todo from "./src/components/Todo.js";
+import {MainScreen} from "./src/screens/MainScreen.js";
+import {TodoScreen} from "./src/screens/TodoScreen.js";
 
 export default function App() {
-    const [todos, setTodos] = useState([])
-    const addTodo = (title) => {
+    const [todoId, setTodoId] = useState(null); // state для текущего экрана (страницы)
+    const [todos, setTodos] = useState([]); // state для todoшек
+
+    const addTodo = title => {
         const newTodo = {
-            id: Date.now().toString(),
+            id: Date.now(),
             title,
         }
         setTodos(prevState => [...prevState, newTodo])
-    }
+    };
 
     const removeTodo = id => {
         setTodos(prevState => prevState.filter(todo => todo.id !== id))
+    };
+
+    const onOpenTodo = id => {
+        setTodoId(id)
+    };
+
+    const backToMain = () => setTodoId(null)
+
+    let content = (
+        <MainScreen
+            todos={todos}
+            addTodo={addTodo}
+            removeTodo={removeTodo}
+            onOpen={onOpenTodo}
+        />);
+
+    if (todoId) {
+        const selectedTodo = todos.find(todo => todo.id === todoId);
+        content = <TodoScreen back={backToMain} todo={selectedTodo}/>
     }
+
 
     return (
         <View style={styles.container}>
             <Navbar title={'To Do List'}/>
             <View style={styles.content}>
-                <AddToDo onSubmit={addTodo}/>
-                <FlatList
-                    keyExtractor={item => item.id.toString()}
-                    data={todos}
-                    renderItem={
-                        ({item}) =>
-                            <Todo
-                                todo={item}
-                                onRemove={removeTodo}
-                            />
-                    }/>
+                {content}
             </View>
         </View>
     );
