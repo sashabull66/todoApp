@@ -10,7 +10,7 @@ export default function Todo({todo, onRemove, openCurrentTodo}) {
             onLongPress={() => onRemove(todo.id)}
         >
             <View style={styles.Todo}>
-                <Text>{todo.title}</Text>
+                <Text style={styles.title}>{todo.title}</Text>
             </View>
         </TouchableOpacity>
     )
@@ -26,5 +26,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginBottom: 10
     },
+    title: {
+        fontFamily: 'barlowBold',
+    }
 
 })
