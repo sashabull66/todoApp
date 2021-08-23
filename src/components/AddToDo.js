@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {View, TextInput, StyleSheet, Alert} from "react-native";
+import {View, TextInput, StyleSheet, Alert, Keyboard} from "react-native";
 import {THEME} from "../theme.js";
 import {Ionicons} from '@expo/vector-icons';
 
@@ -13,6 +13,7 @@ export default function AddToDo({onSubmit}) {
         } else {
             onSubmit(value)
             setValue('')
+            Keyboard.dismiss() // скрыть клавиатуру
         }
     }
 
