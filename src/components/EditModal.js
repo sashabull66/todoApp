@@ -1,6 +1,7 @@
 import React from "react";
 import {Modal, View, StyleSheet, TextInput, Button, Alert} from "react-native";
 import {THEME} from "../theme.js";
+import {AppButton} from "./UI/AppButton.js";
 
 export const EditModal = ({inputValue, hide, visible, onSave}) => {
     const [inputVal, setInputVal] = React.useState(inputValue)
@@ -28,12 +29,8 @@ export const EditModal = ({inputValue, hide, visible, onSave}) => {
                     onChangeText={setInputVal}
                 />
                 <View style={styles.btnWrapper}>
-                    <Button title={'Отмена'} onPress={() => {
-                        hide()
-                    }} color={THEME.DANGER_COLOR}/>
-                    <Button title={'Сохранить'} onPress={() => {
-                        saveNewTodoValue()
-                    }}/>
+                    <AppButton onPress={() => {hide()}} color={THEME.DANGER_COLOR}>Отмена</AppButton>
+                    <AppButton onPress={() => {saveNewTodoValue()}}>Сохранить</AppButton>
                 </View>
             </View>
         </Modal>

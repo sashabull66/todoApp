@@ -1,9 +1,12 @@
 import React from "react";
 import {StyleSheet, View, Button} from 'react-native';
+import {FontAwesome, AntDesign} from '@expo/vector-icons';
+
 import {THEME} from "../theme.js";
 import AppCard from "../components/UI/AppCard.js";
 import {EditModal} from "../components/EditModal.js";
 import AppTextBold from "../components/UI/AppTextBold.js";
+import {AppButton} from "../components/UI/AppButton.js";
 
 export const TodoScreen = ({todo, onSave, remove, back}) => {
     const [modal, setModal] = React.useState(false);
@@ -27,25 +30,23 @@ export const TodoScreen = ({todo, onSave, remove, back}) => {
             />
             <AppCard>
                 <AppTextBold style={styles.title}>{todo.title}</AppTextBold>
-                <Button
-                    title={'Ред.'}
-                    onPress={() => {
-                        setModal(true)
-                    }}/>
+                <AppButton onPress={() => {setModal(true)}}>
+                    <FontAwesome name={'edit'} size={20}/>
+                </AppButton>
             </AppCard>
             <View style={styles.btnWrapper}>
                 <View style={styles.btn}>
-                    <Button
-                        title={'Назад'}
-                        onPress={back}
-                        color={THEME.GREY_COLOR}/></View>
+                    <AppButton onPress={back} color={THEME.GREY_COLOR}>
+                        <AntDesign name={'back'} size={20} color={'white'}/>
+                    </AppButton>
+                </View>
                 <View style={styles.btn}>
-                    <Button
-                        title={'Удалить'}
-                        onPress={() => {
-                            remove(todo.id)
-                        }}
-                        color={THEME.DANGER_COLOR}/></View>
+                    <AppButton onPress={() => {
+                        remove(todo.id)
+                    }} color={THEME.DANGER_COLOR}>
+                        <FontAwesome name={'remove'} size={20} color={'white'}/>
+                    </AppButton>
+                </View>
             </View>
         </View>
     )
