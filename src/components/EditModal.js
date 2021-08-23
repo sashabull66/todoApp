@@ -1,11 +1,19 @@
 import React from "react";
-import {Modal, View, StyleSheet, TextInput, Button} from "react-native";
+import {Modal, View, StyleSheet, TextInput, Button, Alert} from "react-native";
 import {THEME} from "../theme.js";
 
-export const EditModal = (props) => {
+export const EditModal = ({inputValue, hide, visible, onSave}) => {
+    const [inputVal, setInputVal] = React.useState(inputValue)
+    const saveNewTodoValue = () => {
+        if (inputVal.trim().length < 3) {
+            Alert.alert('Ошибка', `Минимальная длина вводимого значения 3 символа. Длина текущего значения: ${inputVal.trim().length} символов`)
+        } else {
+            onSave(inputVal)
+        }
+    }
     return (
         <Modal
-            visible={props.visible}
+            visible={visible}
             animationType={'slide'}
             transparent={false}
         >
@@ -16,12 +24,15 @@ export const EditModal = (props) => {
                     autoCapitalize={'none'}
                     autoCorrect={false}
                     maxLength={64}
+                    value={inputVal}
+                    onChangeText={setInputVal}
                 />
                 <View style={styles.btnWrapper}>
                     <Button title={'Отмена'} onPress={() => {
-                        props.hide()
+                        hide()
                     }} color={THEME.DANGER_COLOR}/>
                     <Button title={'Сохранить'} onPress={() => {
+                        saveNewTodoValue()
                     }}/>
                 </View>
             </View>
