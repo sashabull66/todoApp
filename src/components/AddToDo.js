@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {View, TextInput, Button, StyleSheet, Alert} from "react-native";
 import {THEME} from "../theme.js";
+import {Ionicons} from '@expo/vector-icons';
 
 export default function AddToDo({onSubmit}) {
 
@@ -9,8 +10,7 @@ export default function AddToDo({onSubmit}) {
     const pressHandler = () => {
         if (!value.trim().length) {
             Alert.alert('Введите валидные данные!')
-        }
-        else {
+        } else {
             onSubmit(value)
             setValue('')
         }
@@ -26,8 +26,8 @@ export default function AddToDo({onSubmit}) {
                 autoCorrect={false}
                 autoCapitalize={"none"}
             />
-
-            <Button title={'Добавить'} onPress={pressHandler}/>
+            <Ionicons.Button onPress={pressHandler} name='add-circle-outline'>Добавить</Ionicons.Button>
+            {/*<Button title={'Добавить'} onPress={pressHandler}/>*/}
         </View>
     )
 }
