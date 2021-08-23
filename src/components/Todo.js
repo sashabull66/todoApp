@@ -1,5 +1,6 @@
 import React from "react";
 import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
+import AppTextRegular from "./UI/AppTextRegular.js";
 
 export default function Todo({todo, onRemove, openCurrentTodo}) {
 
@@ -10,7 +11,7 @@ export default function Todo({todo, onRemove, openCurrentTodo}) {
             onLongPress={() => onRemove(todo.id)}
         >
             <View style={styles.Todo}>
-                <Text style={styles.title}>{todo.title}</Text>
+                <AppTextRegular>{todo.title}</AppTextRegular>
             </View>
         </TouchableOpacity>
     )
@@ -26,8 +27,4 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginBottom: 10
     },
-    title: {
-        fontFamily: 'barlowBold',
-    }
-
 })
