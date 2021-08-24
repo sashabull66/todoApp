@@ -4,17 +4,17 @@ import AppTextBold from "./AppTextBold.js";
 import {THEME} from "../../theme.js";
 // TouchableOpacity для того чтобы корневой элемент мог обрабатывать клики (тапы)
 export const AppButton = ({children, onPress, color = THEME.MAIN_COLOR}) => {
-    const platform = Platform.OS;
-    const Wrapper = platform === 'android' ? TouchableNativeFeedbackComponent : TouchableOpacity
+    // const Wrapper = Platform.OS === 'android' ? TouchableNativeFeedbackComponent : TouchableOpacity
+
 
     return (
-        <Wrapper onPress={onPress} activeOpacity={0.7}>
+        <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
             <View style={{...styles.button, backgroundColor: color}}>
                 <AppTextBold style={styles.text}>
                     {children}
                 </AppTextBold>
             </View>
-        </Wrapper>
+        </TouchableOpacity>
     )
 }
 
